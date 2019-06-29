@@ -12,7 +12,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] float nextWayPointDistance;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] LayerMask obstaclelayer;
-    [SerializeField] Transform target;
 
     int currentWaypoint = 0;
     bool reachedEnd = false;
@@ -22,11 +21,13 @@ public class EnemyAI : MonoBehaviour
     Path path;
     Seeker seeker;
     Rigidbody2D rbd;
+    Transform target;
 
     void Start()
     {
         seeker = GetComponent<Seeker>();
         rbd = GetComponent<Rigidbody2D>();
+        target = FindObjectOfType<Player>().transform;
 
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
