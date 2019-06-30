@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] BulletSide side;
     [SerializeField] int damage;
+    [SerializeField] GameObject particle;
     float speed;
     float acc;
     Rigidbody2D body;
@@ -18,6 +19,7 @@ public class Bullet : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        GetComponent<Collider2D>().enabled = false;
     }
     public void Shoot(Vector2 _dir,BulletType _type,float _speed,float _acc = 0)
     {
@@ -30,6 +32,7 @@ public class Bullet : MonoBehaviour
         {
             StartCoroutine(IEAccelerate());
         }
+        GetComponent<Collider2D>().enabled = true;
     }
     IEnumerator IEAccelerate()
     {
@@ -71,7 +74,8 @@ public class Bullet : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject);
+                //Pool.Instance.Recycle(particle, transform.position, Quaternion.identity);
+                gameObject.SetActive(false);
             }
         }
     }

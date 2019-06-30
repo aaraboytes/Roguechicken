@@ -16,6 +16,7 @@ public class PathGenerator : MonoBehaviour
     int index = 0;
     Vector3 originPos;
     LineRenderer debugLine;
+    GameObject map;
 
     //Indicators
     [SerializeField] GameObject boss;
@@ -37,14 +38,13 @@ public class PathGenerator : MonoBehaviour
     public GameObject LRoom;
     public GameObject RRoom;
 
-    public GameObject endRoom;
-
     [SerializeField]int tWeight, dWeight, rWeight, lWeight;
     Direction currentBranch = Direction.top;
     bool endGeneration = false;
 
     private void Start()
     {
+        map = new GameObject("Map");
         originPos = transform.position;
         CalculateWeights();
 
@@ -83,7 +83,8 @@ public class PathGenerator : MonoBehaviour
     }
     void GenerateTrack()
     {
-        Instantiate(startRoom, transform.position, Quaternion.identity);
+        GameObject start = Instantiate(startRoom, map.transform);
+        start.transform.position = transform.position;
         generatedPositions.Add(transform.position);
         InstantiateRoomStarter();
         StartCoroutine(IEGeneratePath());
@@ -123,23 +124,6 @@ public class PathGenerator : MonoBehaviour
                     break;
                 }
                 yield return null;
-                /*nextDir = GetRandomDir();
-                newPos = GetNewPos(transform.position, nextDir);
-                print("Trying with " + nextDir.ToString() + " so " + newPos);
-                if (generatedPositions.Contains(newPos))
-                    Debug.LogError("Repited position " + mistakes);
-                if (!generatedPositions.Contains(newPos) && nextDir != OppositeDir(pastDir))
-                    emptySlot = true;
-                else
-                {
-                    mistakes++;
-                    if (mistakes >= 4)
-                    {
-                        branchCorrect = false;
-                        break;
-                    }
-                }
-                yield return null;*/
             }
             if (branchCorrect)
             {
@@ -189,7 +173,8 @@ public class PathGenerator : MonoBehaviour
         if (generatedPositions.Contains(transform.position))
             return;
         GameObject newRoom = GetCorner(pastDir);
-        newRoom = Instantiate(newRoom,transform.position,Quaternion.identity);
+        newRoom = Instantiate(newRoom,map.transform);
+        newRoom.transform.position = transform.position;
         rooms.Add(newRoom);
         corners.Add(transform.position);
         if (NextBranch())
@@ -207,7 +192,8 @@ public class PathGenerator : MonoBehaviour
     void InstantiateRoom()
     {
         GameObject newRoom = GetRoom();
-        newRoom = Instantiate(newRoom, transform.position, Quaternion.identity);
+        newRoom = Instantiate(newRoom,map.transform);
+        newRoom.transform.position = transform.position;
         rooms.Add(newRoom);
         DecreaseInCurrentBranch();
         if (SpacesLeftInBranch() <= 0)

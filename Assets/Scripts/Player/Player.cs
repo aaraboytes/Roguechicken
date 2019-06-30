@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
                 bombToInst = grenadeBomb;
                 break;
         }
-        Instantiate(bombToInst, (Vector2)transform.position + RPGMovFuncs.ClampDir(storedDir), Quaternion.identity);
+        Pool.Instance.Recycle(bombToInst, (Vector2)transform.position + RPGMovFuncs.ClampDir(storedDir), Quaternion.identity);
     }
     void ChangeBomb()
     {
@@ -180,7 +180,7 @@ public class Player : MonoBehaviour
     void Shoot()
     {
         print("Shoot");
-        GameObject b = Instantiate(bullet, (Vector2)transform.position + storedDir *1.05f, Quaternion.identity);
+        GameObject b = Pool.Instance.Recycle(bullet, (Vector2)transform.position + storedDir *1.05f, Quaternion.identity);
         b.GetComponent<Bullet>().Shoot(storedDir, BulletType.normal, bulletForce);
     }
     void Reload()
