@@ -8493,7 +8493,7 @@ GameObject:
   - component: {fileID: 3215807067721443782}
   - component: {fileID: 1227469302329216596}
   m_Layer: 0
-  m_Name: LA
+  m_Name: LB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11799,7 +11799,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -11888,31 +11888,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1030146167472765399, guid: 4474624062435df47afdb009250c03d8,
-        type: 3}
-      propertyPath: showNavGraphs
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1030146167472765399, guid: 4474624062435df47afdb009250c03d8,
-        type: 3}
-      propertyPath: data.file_cachedStartup
-      value: 
-      objectReference: {fileID: 4900000, guid: 9678721ce20d2c347ae55980d23e3ef0, type: 3}
-    - target: {fileID: 1030146167472765399, guid: 4474624062435df47afdb009250c03d8,
-        type: 3}
-      propertyPath: data.cacheStartup
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1030146167472765399, guid: 4474624062435df47afdb009250c03d8,
-        type: 3}
-      propertyPath: data.dataString
-      value: UEsDBBQAAAgIAACQn+vgVqJhSQIAAO8EAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMuS2jAQ/BVK55ACE2DJLQGWzYGFWpLaiy+yNcYqZMmlx/Iq/j0j2cZeUjmh6u6Z6XmYK+HSlJBapVeas7ViQL73iH+TL72WfIET3Su54xdoNO+c2dyLaNC8UcsV4kMfZlQBVvP0h9wLLx4g6CTPlC6WbA9zZaxBOKPCAFJaWR8tEbr2yAl/+jMfcsZXNPWvC75mg94NnylIC7qVNsJGVqmcTAUtSmDeciseRbV6FAWZxGZqhTeeKiG4qZ0Qey5Dp2/07PtknGJXobTX5sD3ufUOu4GbLDNgazuanhdc43CqjOSnqiZWUHOoPH1Q4XyNaDwJfqqk63/4/jDQmVbFS1N3OPA1bM7TAzpMqbGdkXbhxWfjTh6pONBEwHsO8lWttHKSIWm186HOQLTopLr3Ns8hPbS6yusD6Mr/b8Y3cQvtn+aCF4mnvn6rgJ1QYdhh76BxLb/QcbgKU6dA1Lv4Y+A33XfPpyaeuTYWqbpN6e0lymkvJcswNN+Ns3OlJQS4Nl2CpMKet5jGPu7wgeuUfWCeqf9Q6uI119z/Q0iAW/1g8EBt1fG+LZOr4xpMvnFWcAmtaU+84pzmSsrqxLozacJ2Tmc07YTtHWefb4tMniKWJWySMJaNZ+NRnyVTNk0yyJ5YMqBDIOH4uMQ+qdhWRuvx4NZkm1zioTX/H72VpmU4d6bpccUvheqMnMtM7VINIDdVhrtx0FgEP0m2ZBwHtANruQz7JteYCJUegMX3RHHodHmymsZtlpiU/ENZj8RkHv4wYnIjt79QSwMEFAAACAgAAJCf60JcF9lsAAAAdwAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSs9BRUEovSizIKAYKGII4pZkpIHa0kpmFUUpaUopZUkpKmqmlqbFuSpJ5inlSWmqaRUqSQaJhqlIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAkJ/r4FaiYUkCAADvBAAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAkJ/rQlwX2WwAAAB3AAAACQAkAAAAAAAAAAAAAACWAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAE0DAAAAAA==
-      objectReference: {fileID: 0}
-    - target: {fileID: 1030146167472765399, guid: 4474624062435df47afdb009250c03d8,
-        type: 3}
-      propertyPath: heuristic
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4474624062435df47afdb009250c03d8, type: 3}
