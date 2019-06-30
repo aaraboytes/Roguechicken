@@ -221,6 +221,12 @@ public class Player : MonoBehaviour
         else
             bType = BombType.normal;
     }
+
+    public BombType GetBombType()
+    {
+        return bType;
+    }
+
     #endregion
     #region Shoot
     void Shoot()
@@ -289,5 +295,6 @@ public class Player : MonoBehaviour
     {
         ammo += amount;
     }
+    public int GetAmmo() { return ammo; }
     #endregion
 }

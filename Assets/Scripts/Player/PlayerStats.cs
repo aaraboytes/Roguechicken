@@ -50,6 +50,12 @@ public class PlayerStats : MonoBehaviour
     {
         return invincible;
     }
+
+    public int GetHealth()
+    {
+        return health;
+    }
+
     #endregion
     #region Money
     public void Coin()
@@ -82,6 +88,11 @@ public class PlayerStats : MonoBehaviour
     {
         keys--;
     }
+
+    public int GetKeys()
+    {
+        return keys;
+    }
     #endregion
     #region Shield
     public void GiveShield()
@@ -94,6 +105,10 @@ public class PlayerStats : MonoBehaviour
     public void GiveAmmo(int amount)
     {
         player.GiveAmmo(amount);
+    }
+    public int GetAmmo()
+    {
+        return player.GetAmmo();
     }
     #endregion
     #region Items
