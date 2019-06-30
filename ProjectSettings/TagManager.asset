@@ -4,7 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
+  - bomba
+  - wall
   layers:
   - Default
   - TransparentFX
@@ -14,11 +15,11 @@ TagManager:
   - UI
   - 
   - 
-  - Player
-  - Enemy
-  - Hazard
-  - Obstacle
+  - Obstaculos
   - BG
+  - 
+  - 
+  - 
   - 
   - 
   - 
