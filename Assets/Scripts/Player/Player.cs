@@ -14,6 +14,9 @@ public class Player : MonoBehaviour
     [SerializeField] float dashForce;
     [SerializeField] float dashTime;
     bool dashed = false;
+    [SerializeField] float knockBackForce;
+    [SerializeField] float knockBackTime;
+    bool whiteKb = false;
 
     [Header("Shooting")]
     [SerializeField] Transform indicator;
@@ -48,6 +51,7 @@ public class Player : MonoBehaviour
     float timer = 0;
 
     PlayerStats stats;
+    
 
     private void Start()
     {
@@ -58,14 +62,19 @@ public class Player : MonoBehaviour
         stats = GetComponent<PlayerStats>();
         bullets = maxBullets;
 
-        if (Input.GetJoystickNames().Length > 1)
-            mousePlay = false;
-        else
-            mousePlay = true;
+        mousePlay = true;
     }
    
     void Update()
     {
+        if(Mathf.Abs(Input.GetAxis("RHorizontal") + Input.GetAxis("RVertical")) > 0)
+        {
+            mousePlay = false;
+        }
+        else
+        {
+            mousePlay = true;
+        }
         if (interactuable)
         {
             #region Movement
@@ -147,8 +156,45 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        body.velocity = movement;
+        if(interactuable)
+            body.velocity = movement;
     }
+    #region Health
+    public void KnockBack(Vector2 pos)
+    {
+        interactuable = false;
+        stats.MakeInvincible();
+        body.AddForce(((Vector2)transform.position - pos).normalized, ForceMode2D.Impulse);
+        StartCoroutine(IEKnockBack());
+    }
+    IEnumerator IEKnockBack()
+    {
+        float time = 0;
+        float middleTime = 0;
+        while (time < knockBackTime)
+        {
+            time += Time.deltaTime;
+            middleTime += Time.deltaTime;
+            if (middleTime > 0.01f)
+            {
+                whiteKb = !whiteKb;
+                middleTime = 0;
+                if (whiteKb)
+                {
+                    transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.black;
+                }
+                else
+                {
+                    transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+                }
+            }
+            yield return null;
+        }
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+        stats.EndInvincible();
+        interactuable = true;
+    }
+    #endregion
     #region Bomb
     void Bomb()
     {
@@ -218,12 +264,14 @@ public class Player : MonoBehaviour
         while (timer < dashTime)
         {
             body.velocity = storedMovement * dashForce;
+            print("Dashing");
             timer += Time.deltaTime;
             yield return null;
         }
         timer = cadence;
         stats.EndInvincible();
         interactuable = true;
+        dashed = false;
     }
     #endregion
     #region Shield

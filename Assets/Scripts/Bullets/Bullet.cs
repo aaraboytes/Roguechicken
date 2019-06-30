@@ -56,10 +56,7 @@ public class Bullet : MonoBehaviour
             {
                 other.GetComponent<Enemy>().Damage(damage);
             }
-            else
-            {
-                gameObject.SetActive(false);
-            }
+            gameObject.SetActive(false);
         }
         else if(side.Equals(BulletSide.enemy) && !other.CompareTag("Enemy"))
         {
@@ -69,14 +66,11 @@ public class Bullet : MonoBehaviour
                 PlayerStats ps = other.GetComponent<PlayerStats>();
                 if (!ps.Invincible())
                 {
-                    other.GetComponent<PlayerStats>().Damage(damage);
+                    other.GetComponent<PlayerStats>().Damage(damage,transform.position);
                 }
             }
-            else
-            {
-                //Pool.Instance.Recycle(particle, transform.position, Quaternion.identity);
-                gameObject.SetActive(false);
-            }
+            //Pool.Instance.Recycle(particle, transform.position, Quaternion.identity);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -2580,7 +2580,7 @@ GameObject:
   - component: {fileID: 2355863054157947752}
   - component: {fileID: 2355863054157947754}
   - component: {fileID: 2355863054157947753}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RoomCaller
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 730254210569345813}
   - component: {fileID: 7666833162784203068}
   m_Layer: 13
-  m_Name: Enemy
+  m_Name: EnemyBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,3 +133,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   side: 1
   damage: 1
+  particle: {fileID: 0}

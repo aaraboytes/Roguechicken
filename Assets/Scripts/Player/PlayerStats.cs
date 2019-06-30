@@ -18,7 +18,7 @@ public class PlayerStats : MonoBehaviour
         player = GetComponentInParent<Player>();
     }
     #region Health
-    public void Damage(int damage)
+    public void Damage(int damage,Vector2 pos)
     {
         if (shielded)
         {
@@ -30,6 +30,7 @@ public class PlayerStats : MonoBehaviour
         {
             GameManager.Instance.GameOver();
         }
+        player.KnockBack(pos);
     }
     public void GiveHeal(int heal)
     {
@@ -95,7 +96,6 @@ public class PlayerStats : MonoBehaviour
         player.GiveAmmo(amount);
     }
     #endregion
-
     #region Items
     public void GiveItem(ItemType item, int amount)
     {
