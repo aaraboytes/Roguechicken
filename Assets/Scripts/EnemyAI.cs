@@ -6,6 +6,7 @@ using Pathfinding;
 public class EnemyAI : MonoBehaviour
 {
 
+    [SerializeField] bool canMove;
     [SerializeField] float visionRatio;
     [SerializeField] float closerangeDistance;
     [SerializeField] float movementSpeed;
@@ -72,7 +73,7 @@ public class EnemyAI : MonoBehaviour
         Vector2 force = direction * movementSpeed * Time.deltaTime;
         float distance = Vector2.Distance(rbd.position, path.vectorPath[currentWaypoint]);
 
-        if (isPlayerOnVision && distance > closerangeDistance)
+        if (isPlayerOnVision && distance > closerangeDistance && canMove)
             rbd.AddForce(force);
 
         if(distance < nextWayPointDistance)
@@ -109,9 +110,17 @@ public class EnemyAI : MonoBehaviour
         isWallInFront = isObstacleBlocking;
     }
 
+    public void SetCanMove(bool newCanMove)
+    {
+        canMove = newCanMove;
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, visionRatio);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, closerangeDistance);
     }
 }

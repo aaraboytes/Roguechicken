@@ -44,7 +44,7 @@ public class Bullet : MonoBehaviour
             yield return null;
         }
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (side.Equals(BulletSide.player))
         {
