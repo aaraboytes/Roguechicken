@@ -42,7 +42,7 @@ public class Bullet : MonoBehaviour
             body.velocity = dir * speed;
             if (Mathf.Abs(body.velocity.x + body.velocity.y) < 0.5f)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
             yield return null;
         }
@@ -58,7 +58,7 @@ public class Bullet : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
         else if(side.Equals(BulletSide.enemy) && !other.CompareTag("Enemy"))

@@ -19,7 +19,7 @@ public class Cow : Enemy
     float timer = 0;
     float visionRatio;
     Transform player;
-
+    Room myRoom;
     //Setting up brain
     bool setUpBrain = false;
     bool playerWatched = false;
@@ -102,7 +102,16 @@ public class Cow : Enemy
     }
     public override void Die()
     {
-        Destroy(gameObject);
+        myRoom.NoticeADead();
+        gameObject.SetActive(false);
+    }
+    public override bool Alive()
+    {
+        return health > 0;
+    }
+    public override void SetRoomHandler(Room m_Room)
+    {
+        myRoom = m_Room;
     }
     void ChangeState()
     {
