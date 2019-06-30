@@ -11,7 +11,7 @@ public class Slime : Enemy
     int health;
     EnemyAI enemyAI;
     Rigidbody2D rbd;
-    Room myRoom;
+
     public override void Damage(int damage)
     {
         health -= damage;
@@ -29,16 +29,11 @@ public class Slime : Enemy
             {
                 GameObject child = Instantiate(gameObject, childInstaPos[i].position, Quaternion.identity);
                 child.GetComponent<Slime>().SetIsParent(false);
-                child.GetComponent<Slime>().SetRoomHandler(myRoom);
                 child.transform.localScale = new Vector2(0.75f, 0.75f);
             }
         }
-        else
-        {
-            myRoom.NoticeADead();
-        }
-        gameObject.SetActive(false);
-        
+
+        Destroy(gameObject);
     }
 
     void Start()
@@ -47,20 +42,12 @@ public class Slime : Enemy
         rbd = GetComponent<Rigidbody2D>();
 
         health = maxHealth;
-        //StartCoroutine(MoveSlimish());
-    }
-    public override void SetRoomHandler(Room m_Room)
-    {
-        myRoom = m_Room;
-    }
-    public override bool Alive()
-    {
-        return health > 0;
+        StartCoroutine(MoveSlimish());
     }
 
-    /*IEnumerator MoveSlimish()
+    IEnumerator MoveSlimish()
     {
-        /*enemyAI.SetCanMove(true);
+        enemyAI.SetCanMove(true);
         yield return new WaitForSeconds(0.4f);
 
         enemyAI.SetCanMove(false);
@@ -68,7 +55,7 @@ public class Slime : Enemy
 
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(MoveSlimish());
-    }*/
+    }
 
     public void SetIsParent(bool newIsParent)
     {

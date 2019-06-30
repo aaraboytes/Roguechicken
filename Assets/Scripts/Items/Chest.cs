@@ -12,15 +12,12 @@ public class Chest : MonoBehaviour
 {
     [SerializeField] GameObject coin;
     [SerializeField] ItemGameObjectRelation[] items;
-    [SerializeField] GameObject openedChest;
-    [SerializeField] GameObject closedChest;
     ItemType[] inside = new ItemType[0];
     int insideCoins;
     bool opened;
     private void Start()
     {
         GenerateChest();
-        openedChest.SetActive(false);
     }
     void GenerateChest()
     {
@@ -63,8 +60,6 @@ public class Chest : MonoBehaviour
     public void Open()
     {
         opened = true;
-        openedChest.SetActive(true);
-        closedChest.SetActive(false);
         for(int i = 0; i < insideCoins; i++)
         {
             Vector2 dir = RandomDir();

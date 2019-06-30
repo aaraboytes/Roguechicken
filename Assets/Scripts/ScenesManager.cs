@@ -9,8 +9,4 @@ public static class ScenesManager
     {
         SceneManager.LoadScene(scene);
     }
-    public static Scene GetCurrentScene()
-    {
-        return SceneManager.GetActiveScene();
-    }
 }

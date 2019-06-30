@@ -26,7 +26,6 @@ public class Milk : Enemy
     //Shot
     [SerializeField]BulletsFunctions shotFuncs;
 
-    Room myRoom;
     private void Start()
     {
         shotFuncs = GetComponent<BulletsFunctions>();
@@ -85,19 +84,9 @@ public class Milk : Enemy
         if (health <= 0)
             Die();
     }
-    
-    public override bool Alive()
-    {
-        return health > 0;
-    }
     public override void Die()
     {
-        myRoom.NoticeADead();
-        gameObject.SetActive(false);
-    }
-    public override void SetRoomHandler(Room m_Room)
-    {
-        myRoom = m_Room;
+        Destroy(gameObject);
     }
     void ChangeState()
     {

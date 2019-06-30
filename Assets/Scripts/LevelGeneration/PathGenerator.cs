@@ -381,7 +381,6 @@ public class PathGenerator : MonoBehaviour
             }
             Instantiate(boss, bossPos, Quaternion.identity);
         }
-        FindObjectOfType<AstarPath>().Scan();
     }
     void BalanceWeights()
     {
