@@ -6,6 +6,7 @@ using Pathfinding;
 public class EnemyAI : MonoBehaviour
 {
 
+    [SerializeField] bool canMove;
     [SerializeField] float visionRatio;
     [SerializeField] float closerangeDistance;
     [SerializeField] float movementSpeed;
@@ -141,5 +142,8 @@ public class EnemyAI : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, visionRatio);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, closerangeDistance);
     }
 }
