@@ -20,6 +20,11 @@ public class Cow : Enemy
     float visionRatio;
     Transform player;
     Room myRoom;
+    Transform animatorChild;
+    Animator anim;
+    Rigidbody2D body;
+    [SerializeField] GameObject coin;
+
     //Setting up brain
     bool setUpBrain = false;
     bool playerWatched = false;
@@ -31,6 +36,10 @@ public class Cow : Enemy
 
     private void Start()
     {
+        animatorChild = transform.GetChild(0);
+        anim = animatorChild.gameObject.GetComponent<Animator>();
+        body = GetComponent<Rigidbody2D>();
+
         shotFuncs = GetComponent<BulletsFunctions>();
         brain = GetComponent<EnemyAI>();
         visionRatio = brain.GetVisionRatio();
@@ -40,6 +49,15 @@ public class Cow : Enemy
     }
     private void Update()
     {
+        anim.SetFloat("velocity", Mathf.Abs(body.velocity.x + body.velocity.y));
+        if (body.velocity.x > 0)
+        {
+            animatorChild.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            animatorChild.transform.localScale = new Vector3(1, 1, 1);
+        }
         if (!playerWatched)
         {
             if (brain.ScanRadius())
@@ -103,6 +121,13 @@ public class Cow : Enemy
     public override void Die()
     {
         myRoom.NoticeADead();
+        int insideCoins = Random.Range(0, 5);
+        for (int i = 0; i < insideCoins; i++)
+        {
+            Vector2 dir = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)).normalized;
+            GameObject currentCoin = Instantiate(coin, (Vector2)transform.position + dir, Quaternion.identity);
+            currentCoin.GetComponent<Rigidbody2D>().AddForce(dir, ForceMode2D.Impulse);
+        }
         gameObject.SetActive(false);
     }
     public override bool Alive()

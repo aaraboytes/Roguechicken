@@ -47,6 +47,8 @@ public class Player : MonoBehaviour
     Vector2 movement = Vector2.right;
     Vector2 storedMovement;
     Rigidbody2D body;
+    Transform animatorChild;
+    Animator anim;
     AudioSource audio;
     float timer = 0;
 
@@ -55,7 +57,10 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        animatorChild = transform.GetChild(0);
+        anim = animatorChild.gameObject.GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
+
         audio = GetComponent<AudioSource>();
         storedDir = dir;
         storedMovement = movement;
@@ -67,7 +72,16 @@ public class Player : MonoBehaviour
    
     void Update()
     {
-        if(Mathf.Abs(Input.GetAxis("RHorizontal") + Input.GetAxis("RVertical")) > 0)
+        anim.SetFloat("velocity", Mathf.Abs(body.velocity.x + body.velocity.y));
+        if (body.velocity.x > 0)
+        {
+            animatorChild.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            animatorChild.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        if (Mathf.Abs(Input.GetAxis("RHorizontal") + Input.GetAxis("RVertical")) > 0)
         {
             mousePlay = false;
         }
@@ -250,6 +264,7 @@ public class Player : MonoBehaviour
     {
         if (!dashed)
         {
+            anim.SetTrigger("dash");
             print("Dash");
             dashed = true;
             StartCoroutine(IEDash());

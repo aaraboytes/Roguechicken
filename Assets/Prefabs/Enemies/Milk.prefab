@@ -178,6 +178,7 @@ MonoBehaviour:
   bulletForce: 10
   state: 0
   shotFuncs: {fileID: 0}
+  coin: {fileID: 5258738409644712698, guid: e542eb725aedd2c42a3a82db365e8f39, type: 3}
 --- !u!114 &6069621029347962391
 MonoBehaviour:
   m_ObjectHideFlags: 0
