@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
             
             if (dir != Vector2.zero)
                 storedDir = dir;
-            indicator.transform.localPosition = dir;
+            indicator.transform.localPosition = storedDir;
 
             if (Input.GetAxisRaw("Dash") > 0 || Input.GetButtonDown("Dash"))
                 Dash();
@@ -180,7 +180,7 @@ public class Player : MonoBehaviour
     void Shoot()
     {
         print("Shoot");
-        GameObject b = Instantiate(bullet, (Vector2)transform.position + storedDir, Quaternion.identity);
+        GameObject b = Instantiate(bullet, (Vector2)transform.position + storedDir *1.05f, Quaternion.identity);
         b.GetComponent<Bullet>().Shoot(storedDir, BulletType.normal, bulletForce);
     }
     void Reload()

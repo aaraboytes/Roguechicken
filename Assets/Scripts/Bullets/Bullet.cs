@@ -44,9 +44,9 @@ public class Bullet : MonoBehaviour
             yield return null;
         }
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (side.Equals(BulletSide.player))
+        if (side.Equals(BulletSide.player) && !other.CompareTag("Player"))
         {
             //Friendly bullet
             if (other.CompareTag("Enemy"))
@@ -58,7 +58,7 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else if(side.Equals(BulletSide.enemy))
+        else if(side.Equals(BulletSide.enemy) && !other.CompareTag("Enemy"))
         {
             //Enemy bullet
             if (other.CompareTag("Player"))

@@ -53,22 +53,22 @@ MonoBehaviour:
   shopItems:
   - spr: {fileID: 21300000, guid: e6dd2eb0f7fc66d4b94392a144255457, type: 3}
     prize: 100
-    item: 2
+    item: 3
     amount: 0
     stockeable: 1
   - spr: {fileID: 21300000, guid: 0fef17f58641ddd49945655eac6ed195, type: 3}
     prize: 50
-    item: 0
+    item: 1
     amount: 0
     stockeable: 1
   - spr: {fileID: 21300000, guid: f50377083cb8dae429460cc34471613d, type: 3}
     prize: 25
-    item: 3
+    item: 4
     amount: 0
     stockeable: 0
   - spr: {fileID: 21300000, guid: b411441aaf9b38344a8bdcc337979d41, type: 3}
     prize: 15
-    item: 1
+    item: 2
     amount: 0
     stockeable: 0
 --- !u!1001 &815165222725235572

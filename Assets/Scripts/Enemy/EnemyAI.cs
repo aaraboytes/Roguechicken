@@ -22,20 +22,33 @@ public class EnemyAI : MonoBehaviour
     Seeker seeker;
     Rigidbody2D rbd;
     Transform target;
+    Vector2 targetPos;
+
+    bool activated = false;
 
     void Start()
     {
         seeker = GetComponent<Seeker>();
         rbd = GetComponent<Rigidbody2D>();
-        target = FindObjectOfType<Player>().transform;
-
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
+    public void SetTargetPos(Vector2 pos)
+    {
+        targetPos = pos;
+    }
+    public void SetTarget(Transform _target)
+    {
+        target = _target;
+    }
+
+    public float GetVisionRatio() { return visionRatio; }
 
     void UpdatePath()
     {
-        if(seeker.IsDone())
-            seeker.StartPath(rbd.position, target.position, OnPathComplete);
+        if (seeker.IsDone())
+        {
+            seeker.StartPath(rbd.position, targetPos, OnPathComplete);
+        }
     }
 
     void OnPathComplete(Path p)
@@ -49,7 +62,10 @@ public class EnemyAI : MonoBehaviour
     
     void Update()
     {
-        ScanForPlayer();
+        if (target != null)
+            targetPos = target.position;
+        if (activated)
+            ScanForPlayer();
         if (path == null) return;
 
         if (currentWaypoint >= path.vectorPath.Count)
@@ -66,27 +82,25 @@ public class EnemyAI : MonoBehaviour
 
         if(isWallInFront)
         {
-            direction = -(target.position - transform.position).normalized;
+            direction = -(targetPos - (Vector2)transform.position).normalized;
         }
 
         Vector2 force = direction * movementSpeed * Time.deltaTime;
         float distance = Vector2.Distance(rbd.position, path.vectorPath[currentWaypoint]);
 
-        if (isPlayerOnVision && distance > closerangeDistance)
+        if (!isWallInFront && activated)
             rbd.AddForce(force);
 
         if(distance < nextWayPointDistance)
             currentWaypoint++;
     }
 
-    void ScanForPlayer()
+    public bool ScanRadius()
     {
         bool playerDetection = false;
-        bool isObstacleBlocking = false;
-
         RaycastHit2D[] circleRay = Physics2D.CircleCastAll(transform.position, visionRatio, Vector2.zero, 10, playerLayer);
 
-        for(int i = 0; i < circleRay.Length; i++)
+        for (int i = 0; i < circleRay.Length; i++)
         {
             if (circleRay[i].collider != null)
             {
@@ -94,10 +108,15 @@ public class EnemyAI : MonoBehaviour
                 break;
             }
         }
-
+        return playerDetection;
+    }
+    void ScanForPlayer()
+    {
+        bool playerDetection = ScanRadius();
+        bool isObstacleBlocking = false;
         isPlayerOnVision = playerDetection;
 
-        Vector2 ray = (target.position - transform.position).normalized;
+        Vector2 ray = (targetPos - (Vector2)transform.position).normalized;
         RaycastHit2D visionRay = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), ray, 1f, obstaclelayer);
         Debug.DrawRay(new Vector2(transform.position.x, transform.position.y), ray, Color.blue);
 
@@ -107,6 +126,15 @@ public class EnemyAI : MonoBehaviour
         }
 
         isWallInFront = isObstacleBlocking;
+    }
+
+    public void Activate()
+    {
+        activated = true;
+    }
+    public void Deactivate()
+    {
+        activated = false;
     }
 
     void OnDrawGizmosSelected()
