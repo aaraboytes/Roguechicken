@@ -18,6 +18,10 @@ public class Bull : Enemy
     float timer = 0;
     float visionRatio;
     Transform player;
+    Transform animatorChild;
+    Animator anim;
+    Rigidbody2D body;
+    [SerializeField] GameObject coin;
 
     //Setting up brain
     bool setUpBrain = false;
@@ -31,15 +35,31 @@ public class Bull : Enemy
     Room myRoom;
     private void Start()
     {
+        animatorChild = transform.GetChild(0);
+        anim = animatorChild.gameObject.GetComponent<Animator>();
+        body = GetComponent<Rigidbody2D>();
+
         shotFuncs = GetComponent<BulletsFunctions>();
         brain = GetComponent<EnemyAI>();
         visionRatio = brain.GetVisionRatio();
         selectedIdleTime = Random.Range(idleTimes.x, idleTimes.y);
         selectedWalkTime = Random.Range(walkTimes.x, walkTimes.y);
         player = FindObjectOfType<Player>().transform;
+        
     }
     private void Update()
     {
+        //Flip body
+
+        if (body.velocity.x > 0)
+        {
+            animatorChild.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            animatorChild.transform.localScale = new Vector3(1, 1, 1);
+        }
+
         if (!playerWatched)
         {
             if (brain.ScanRadius())
@@ -49,7 +69,6 @@ public class Bull : Enemy
                 timer = 0;
             }
         }
-
         timer += Time.deltaTime;
         if (timer > timeSelected)
         {
@@ -107,6 +126,13 @@ public class Bull : Enemy
     public override void Die()
     {
         myRoom.NoticeADead();
+        int insideCoins = Random.Range(0, 5);
+        for (int i = 0; i < insideCoins; i++)
+        {
+            Vector2 dir = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)).normalized;
+            GameObject currentCoin = Instantiate(coin, (Vector2)transform.position + dir, Quaternion.identity);
+            currentCoin.GetComponent<Rigidbody2D>().AddForce(dir, ForceMode2D.Impulse);
+        }
         gameObject.SetActive(false);
     }
     public override void SetRoomHandler(Room m_Room)

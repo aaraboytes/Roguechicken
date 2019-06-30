@@ -27,6 +27,7 @@ public class Milk : Enemy
     [SerializeField]BulletsFunctions shotFuncs;
 
     Room myRoom;
+    [SerializeField] GameObject coin;
     private void Start()
     {
         shotFuncs = GetComponent<BulletsFunctions>();
@@ -93,6 +94,13 @@ public class Milk : Enemy
     public override void Die()
     {
         myRoom.NoticeADead();
+        int insideCoins = Random.Range(0, 5);
+        for (int i = 0; i < insideCoins; i++)
+        {
+            Vector2 dir = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)).normalized;
+            GameObject currentCoin = Instantiate(coin, (Vector2)transform.position + dir, Quaternion.identity);
+            currentCoin.GetComponent<Rigidbody2D>().AddForce(dir, ForceMode2D.Impulse);
+        }
         gameObject.SetActive(false);
     }
     public override void SetRoomHandler(Room m_Room)
